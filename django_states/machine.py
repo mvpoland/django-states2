@@ -115,21 +115,6 @@ class StateMachineMeta(type):
         except KeyError:
             raise UnknownState(state_name)
 
-    def get_transition_from_states(self, from_state, to_state):
-        """
-        Gets the transitions between 2 specified states.
-
-        :param str from_state: the from state
-        :param str to_state: the to state
-
-        :returns: a :class:`StateTransition` or raises
-            a :class:`~django_states.exceptions.TransitionNotFound`
-        """
-        for t in list(self.transitions.values()):
-            if from_state in t.from_states and t.to_state == to_state:
-                return t
-        raise TransitionNotFound(self, from_state, to_state)
-
     def get_state_groups(self, state_name):
         """
         Gets a :class:`dict` of state groups, which will be either ``True`` or

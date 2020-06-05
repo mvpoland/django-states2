@@ -24,20 +24,6 @@ def get_STATE_transitions(self, field='state'):
                         'Please enable it by setting log_transitions=True')
 
 
-def get_public_STATE_transitions(self, field='state'):
-    """
-    Returns the transitions which are meant to be seen by the customer.
-    The admin on the other hand should be able to see everything.
-
-    :param str field: the name of the :class:`~django_states.fields.StateField`
-    """
-    if getattr(self, '_{}_log_model'.format(field), None):
-        transitions = getattr(self, 'get_{}_transitions'.format(field))
-        return [t for t in transitions() if t.is_public and t.completed]
-    else:
-        return []
-
-
 def get_STATE_machine(self, field='state', machine=None):
     """
     Gets the machine

@@ -99,13 +99,6 @@ class StateModel(six.with_metaclass(StateModelBase, models.Model)):
         return self.get_state_transitions()
 
     @property
-    def public_transitions(self):
-        """
-        Wraps :meth:`django_states.model_methods.get_public_STATE_transitions`
-        """
-        return self.get_public_state_transitions()
-
-    @property
     def state_description(self):
         """
         Gets the full description of the (current) state

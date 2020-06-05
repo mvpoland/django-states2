@@ -9,7 +9,6 @@ from django.utils.functional import curry
 from django_states.machine import StateMachine
 
 from django_states.model_methods import (get_STATE_transitions,
-                                   get_public_STATE_transitions,
                                    get_STATE_info, get_STATE_machine,
                                    get_STATE_display)
 
@@ -41,7 +40,6 @@ class StateField(models.CharField):
         model:
 
         - :meth:`~django_states.model_methods.get_STATE_transitions`
-        - :meth:`~django_states.model_methods.get_public_STATE_transitions`
         - :meth:`~django_states.model_methods.get_STATE_info`
         - :meth:`~django_states.model_methods.get_STATE_machine`
         """
@@ -72,8 +70,6 @@ class StateField(models.CharField):
             curry(get_STATE_display, field=name, machine=self._machine))
         setattr(cls, 'get_{}_transitions'.format(name),
             curry(get_STATE_transitions, field=name))
-        setattr(cls, 'get_public_{}_transitions'.format(name),
-            curry(get_public_STATE_transitions, field=name))
         setattr(cls, 'get_{}_info'.format(name),
             curry(get_STATE_info, field=name, machine=self._machine))
         setattr(cls, 'get_{}_machine'.format(name),
