@@ -279,7 +279,7 @@ class StateMachine(six.with_metaclass(StateMachineMeta, object)):
         """
         Gets all possible choices for a model.
         """
-        return [(k, cls.states[k].description) for k in list(cls.states.keys())]
+        return sorted([(k, cls.states[k].description) for k in list(cls.states.keys())])
 
 
 class StateDefinition(six.with_metaclass(StateDefinitionMeta, object)):
