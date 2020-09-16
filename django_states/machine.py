@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 """State Machine"""
-from __future__ import absolute_import
 import six
 
 __all__ = ('StateMachine', 'StateDefinition', 'StateTransition')

@@ -1,6 +1,4 @@
-from __future__ import absolute_import
 from django.template import Node, NodeList, Variable
-from django.template import TemplateSyntaxError, VariableDoesNotExist
 from django.template import Library
 
 register = Library()

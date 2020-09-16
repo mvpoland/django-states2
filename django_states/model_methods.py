@@ -1,7 +1,5 @@
 # -*- coding: utf-8 -*-
 """Model Methods"""
-from __future__ import absolute_import
-
 import json
 
 from django_states.exceptions import PermissionDenied, TransitionCannotStart, \

@@ -1,6 +1,4 @@
 # Django settings for test_proj project.
-import os, sys
-
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
@@ -9,15 +7,6 @@ ADMINS = (
 )
 
 MANAGERS = ADMINS
-
-# ROOT = os.path.abspath(
-#     os.path.join(
-#         os.path.abspath(os.path.dirname(__file__)),
-#         '..'
-#     )
-# )
-#
-# path_to = lambda * x: os.path.join(ROOT, *x)
 
 DATABASES = {
     'default': {
