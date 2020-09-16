@@ -20,13 +20,24 @@ setup(
     author='Jonathan Slenders, Gert van Gool, Maarten Timmerman, Steven (rh0dium)',
     author_email='jonathan.slenders@mobilevikings.com',
     packages=find_packages('.', exclude=['test_proj',]),
-    #package_dir={'': 'templates/*'},
-    test_suite='test_proj.runtests.main',
+    python_requires=">=3.5",
+    install_requires=[
+        "six"
+    ],
     classifiers=[
         'Intended Audience :: Developers',
-        'Programming Language :: Python',
         'Operating System :: OS Independent',
         'Environment :: Web Environment',
+        'Programming Language :: Python',
+        'Programming Language :: Python :: 3',
+        'Programming Language :: Python :: 3 :: Only',
+        'Programming Language :: Python :: 3.5',
+        'Programming Language :: Python :: 3.6',
+        'Programming Language :: Python :: 3.7',
+        'Programming Language :: Python :: 3.8',
         'Framework :: Django',
+        'Framework :: Django :: 2.0',
+        'Framework :: Django :: 2.1',
+        'Framework :: Django :: 2.2',
     ],
 )

@@ -1,7 +1,5 @@
 # -*- coding: utf-8 -*-
 """Fields used"""
-from __future__ import absolute_import
-
 __all__ = ('StateField',)
 
 from django.db import models
@@ -115,21 +113,3 @@ class StateField(models.CharField):
             return result
 
         sender.save = new_save
-
-
-# South introspection
-try:
-    from south.modelsinspector import add_introspection_rules
-except ImportError:
-    pass
-else:
-    add_introspection_rules([
-        (
-            (StateField,),
-            [],
-            {
-                'max_length': [100, {"is_value": True}],
-            },
-        ),
-
-        ], ["^django_states\.fields\.StateField"])

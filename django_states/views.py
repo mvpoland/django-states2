@@ -1,7 +1,5 @@
 # -*- coding: utf-8 -*-
 """Views"""
-from __future__ import absolute_import
-
 from django.db.models import get_model
 from django.http import (HttpResponseRedirect, HttpResponseForbidden,
                          HttpResponse,)
