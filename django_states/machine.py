@@ -8,9 +8,13 @@ from collections import defaultdict
 import logging
 
 from django.contrib import messages
-from django_states.exceptions import (TransitionNotFound, TransitionValidationError,
-                                UnknownState, TransitionException, MachineDefinitionException)
-from django.utils.encoding import python_2_unicode_compatible
+from django_states.exceptions import (
+    TransitionNotFound,
+    TransitionValidationError,
+    UnknownState,
+    TransitionException,
+    MachineDefinitionException
+)
 
 
 logger = logging.getLogger(__name__)
@@ -190,7 +194,6 @@ class StateGroupMeta(type):
         return type.__new__(c, name, bases, attrs)
 
 
-@python_2_unicode_compatible
 class StateTransitionMeta(type):
     def __new__(c, name, bases, attrs):
         """
