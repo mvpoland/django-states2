@@ -2,8 +2,9 @@
 """Fields used"""
 __all__ = ('StateField',)
 
+from functools import partialmethod
+
 from django.db import models
-from django.utils.functional import curry
 from django_states.machine import StateMachine
 
 from django_states.model_methods import (get_STATE_transitions,
@@ -67,15 +68,15 @@ class StateField(models.CharField):
 
         # adding extra methods
         setattr(cls, 'get_{}_display'.format(name),
-            curry(get_STATE_display, field=name, machine=self._machine))
+            partialmethod(get_STATE_display, field=name, machine=self._machine))
         setattr(cls, 'get_{}_transitions'.format(name),
-            curry(get_STATE_transitions, field=name))
+            partialmethod(get_STATE_transitions, field=name))
         setattr(cls, 'get_public_{}_transitions'.format(name),
-            curry(get_public_STATE_transitions, field=name))
+            partialmethod(get_public_STATE_transitions, field=name))
         setattr(cls, 'get_{}_info'.format(name),
-            curry(get_STATE_info, field=name, machine=self._machine))
+            partialmethod(get_STATE_info, field=name, machine=self._machine))
         setattr(cls, 'get_{}_machine'.format(name),
-            curry(get_STATE_machine, field=name, machine=self._machine))
+            partialmethod(get_STATE_machine, field=name, machine=self._machine))
 
         models.signals.class_prepared.connect(self.finalize, sender=cls)
 
