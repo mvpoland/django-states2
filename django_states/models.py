@@ -178,6 +178,19 @@ class StateModel(six.with_metaclass(StateModelBase, models.Model)):
         """
         return self.get_state_info().make_transition(transition, user=user, **kwargs)
 
+    def make_transition_if_possible(self, transition, user=None, **kwargs):
+        """
+        Executes state transition if transition exists in possible_transitions.
+
+        :param str transition: the transition name
+        :param user: the user that will execute the transition. Used for
+            permission checking
+        :type: :class:`django.contrib.auth.models.User` or ``None``
+        :param dict kwargs: the kwargs that will be passed to
+            :meth:`~django_states.machine.StateTransition.handler`
+        """
+        return self.get_state_info().make_transition_if_possible(transition, user=user, **kwargs)
+
     @classmethod
     def get_state_choices(cls):
         return cls.Machine.get_state_choices()
