@@ -219,4 +219,18 @@ def get_STATE_info(self, field='state', machine=None):
                 # definition
                 machine.get_state(t.to_state).handler(self)
 
+        def make_transition_if_possible(si_self, transition, user=None, **kwargs):
+            """
+            Executes state transition if transition exists in possible_transitions.
+
+            :param str transition: the transition name
+            :param user: the user that will execute the transition. Used for
+                permission checking
+            :type: :class:`django.contrib.auth.models.User` or ``None``
+            :param dict kwargs: the kwargs that will be passed to
+                :meth:`~django_states.machine.StateTransition.handler`
+            """
+            if transition in (t.get_name() for t in si_self.possible_transitions):
+                return si_self.make_transition(transition, user=user, **kwargs)
+
     return state_info()
