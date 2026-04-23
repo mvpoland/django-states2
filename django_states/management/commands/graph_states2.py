@@ -4,7 +4,6 @@ from yapgvb import Graph
 
 from django.core.management.base import BaseCommand, CommandError
 from django.db.models import get_model
-import six
 
 logger = logging.getLogger(__name__)
 
@@ -37,7 +36,7 @@ class Command(BaseCommand):
             Model = None
         STATE_MACHINE = getattr(Model(), 'get_{}_machine'.format(field))()
 
-        name = six.text_type(Model._meta.verbose_name)
+        name = str(Model._meta.verbose_name)
         g = Graph('state_machine_graph_{}'.format(model_label), False)
         g.label = 'State Machine Graph {}'.format(name)
         nodes = {}
@@ -55,7 +54,7 @@ class Command(BaseCommand):
                 if f(i): return i
             return None
 
-        for trion_name,trion in six.iteritems(STATE_MACHINE.transitions):
+        for trion_name, trion in STATE_MACHINE.transitions.items():
             for from_state in trion.from_states:
                 edge = g.add_edge(nodes[from_state], nodes[trion.to_state])
                 edge.dir = 'forward'

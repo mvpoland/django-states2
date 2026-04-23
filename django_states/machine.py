@@ -1,7 +1,5 @@
 # -*- coding: utf-8 -*-
 """State Machine"""
-import six
-
 __all__ = ('StateMachine', 'StateDefinition', 'StateTransition')
 
 from collections import defaultdict
@@ -224,13 +222,13 @@ class StateTransitionMeta(type):
 
     def __str__(self):
         return '{}: (from {} to {})'.format(
-            six.text_type(self.description),
+            str(self.description),
             ' or '.join(self.from_states),
             self.to_state
         )
 
 
-class StateMachine(six.with_metaclass(StateMachineMeta, object)):
+class StateMachine(object, metaclass=StateMachineMeta):
     """
     Base class for a state machine definition
     """
@@ -254,7 +252,7 @@ class StateMachine(six.with_metaclass(StateMachineMeta, object)):
                         get_STATE_info().test_transition(transition_name,
                                                        request.user)
                     except TransitionException as e:
-                        modeladmin.message_user(request, 'ERROR: {} on: {}'.format(e.message, six.text_type(o)),
+                        modeladmin.message_user(request, 'ERROR: {} on: {}'.format(e.message, str(o)),
                                                 level=messages.ERROR)
                         return
 
@@ -267,7 +265,7 @@ class StateMachine(six.with_metaclass(StateMachineMeta, object)):
                 # Feeback
                 modeladmin.message_user(request, 'State changed for {} objects.'.format(len(queryset)))
 
-            action.short_description = six.text_type(cls.transitions[transition_name])
+            action.short_description = str(cls.transitions[transition_name])
             action.__name__ = 'state_transition_{}'.format(transition_name)
             return action
 
@@ -284,7 +282,7 @@ class StateMachine(six.with_metaclass(StateMachineMeta, object)):
         return sorted([(k, cls.states[k].description) for k in list(cls.states.keys())])
 
 
-class StateDefinition(six.with_metaclass(StateDefinitionMeta, object)):
+class StateDefinition(object, metaclass=StateDefinitionMeta):
     """
     Base class for a state definition
     """
@@ -308,7 +306,7 @@ class StateDefinition(six.with_metaclass(StateDefinitionMeta, object)):
         return cls.__name__
 
 
-class StateGroup(six.with_metaclass(StateGroupMeta, object)):
+class StateGroup(object, metaclass=StateGroupMeta):
     """
     Base class for a state groups
     """
@@ -324,7 +322,7 @@ class StateGroup(six.with_metaclass(StateGroupMeta, object)):
         return cls.__name__
 
 
-class StateTransition(six.with_metaclass(StateTransitionMeta, object)):
+class StateTransition(object, metaclass=StateTransitionMeta):
     """
     Base class for a state transitions
     """
