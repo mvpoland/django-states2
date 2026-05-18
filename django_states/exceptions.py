@@ -1,7 +1,5 @@
 # -*- coding: utf-8 -*-
 
-from django_states.compat import is_authenticated
-
 """Declared Exceptions"""
 
 
@@ -23,7 +21,7 @@ class TransitionOnUnsavedObject(TransitionException):
 
 class PermissionDenied(TransitionException):
     def __init__(self, instance, transition, user):
-        if is_authenticated(user):
+        if user.is_authenticated:
             username = user.get_full_name()
         else:
             username = 'AnonymousUser'

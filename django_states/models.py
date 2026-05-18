@@ -1,7 +1,5 @@
 # -*- coding: utf-8 -*-
 """Models"""
-import six
-
 # Author: Jonathan Slenders, CityLive
 
 __doc__ = \
@@ -53,7 +51,7 @@ class StateModelBase(ModelBase):
         return ModelBase.__new__(cls, name, bases, attrs)
 
 
-class StateModel(six.with_metaclass(StateModelBase, models.Model)):
+class StateModel(models.Model, metaclass=StateModelBase):
     """
     Every model which needs state can inherit this abstract model.
 
@@ -107,7 +105,7 @@ class StateModel(six.with_metaclass(StateModelBase, models.Model)):
         """
         Gets the full description of the (current) state
         """
-        return six.text_type(self.get_state_info().description)
+        return str(self.get_state_info().description)
 
     @property
     def is_initial_state(self):

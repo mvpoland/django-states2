@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 """log model"""
 import json
-import sys
 
 from django.db import models
 from django.db.models.base import ModelBase
@@ -11,7 +10,6 @@ from django.conf import settings
 from django_states import conf
 from django_states.fields import StateField
 from django_states.machine import StateMachine, StateDefinition, StateTransition
-import six
 
 
 def _create_state_log_model(state_model, field_name, machine):
@@ -91,17 +89,11 @@ def _create_state_log_model(state_model, field_name, machine):
                       'field_name': field_name.capitalize()}
             class_name = conf.LOG_MODEL_NAME.format(**values)
 
-            # Make sure that for Python2, class_name is a 'str' object.
-            # In Django 1.7, `field_name` returns a unicode object, causing
-            # `class_name` to be unicode as well.
-            if sys.version_info[0] == 2:
-                class_name = str(class_name)
-
             return ModelBase.__new__(c, class_name, bases, attrs)
 
     get_state_choices = machine.get_state_choices
 
-    class _StateTransition(six.with_metaclass(_StateTransitionMeta, models.Model)):
+    class _StateTransition(models.Model, metaclass=_StateTransitionMeta):
         """
         The log entries for :class:`~django_states.machine.StateTransition`.
         """
@@ -178,7 +170,7 @@ def _create_state_log_model(state_model, field_name, machine):
             :class:`django_states.machine.StateDefinition` from which we were
             originated.
             """
-            return six.text_type(self.from_state_definition.description)
+            return str(self.from_state_definition.description)
 
         @property
         def to_state_definition(self):
@@ -195,7 +187,7 @@ def _create_state_log_model(state_model, field_name, machine):
             :class:`django_states.machine.StateDefinition` to which we were
             transitioning.
             """
-            return six.text_type(self.to_state_definition.description)
+            return str(self.to_state_definition.description)
 
         def make_transition(self, transition, user=None):
             """
@@ -221,7 +213,7 @@ def _create_state_log_model(state_model, field_name, machine):
             :class:`django_states.machine.StateTransition` declaration of the
             machine.
             """
-            return six.text_type(self.state_transition_definition.description)
+            return str(self.state_transition_definition.description)
 
         def __str__(self):
             return '<State transition on {0} at {1} from "{2}" to "{3}">'.format(

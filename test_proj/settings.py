@@ -146,6 +146,8 @@ INSTALLED_APPS = (
 # the site admins on every HTTP 500 error.
 # See http://docs.djangoproject.com/en/dev/topics/logging for
 # more details on how to customize your logging configuration.
+DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
+
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,
